@@ -1,0 +1,164 @@
+//
+//  PrefixHeader.pch
+//  ZJBL-SJ
+//
+//  Created by 郭军 on 2017/3/14.
+//  Copyright © 2017年 ZJNY. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+
+#import "HMSingleton.h"
+#import "ZJBLGoodsManager.h" //商品信息存储到本地管理类
+#import "ZJBLTabbarController.h" //Tabbar控制器
+#import "ZJBLAppDelegate.h"
+
+#import "JGConst.h" //常量
+#import "JGCommonTools.h" //通用工具
+
+//Other
+#import "ZJBLRefreshHeader.h"
+#import "ZJBLRefreshFooter.h"
+#import "ZJBLCommonUnLoginView.h" //未登录时统一界面显示
+#import "ZJBLLoginController.h" //登录
+#import "ZJBLPredicateMethod.h" //正则表达式
+#import "ZJBLNoDataView.h"  //无数据视图
+
+
+//分类
+#import "UIColor+JGHexColor.h"
+#import "UIView+JGExtension.h"
+#import "UIImage+JGColor.h"
+#import "UIImage+JGExtension.h"
+#import "MBProgressHUD+MJ.h"
+#import "UILabel+JGAutoFrame.h"
+#import "NSString+JGCache.h"
+#import "UIImage+JGScale.h"
+#import "UIImage+JGQRCode.h"
+#import "UIBarButtonItem+JGAddition.h"
+#import "NSObject+CZRuntime.h"
+
+//三方
+#import <MJExtension.h>
+#import <UIImageView+WebCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
+#import <MJRefresh.h>
+#import <FMDB.h>
+#import <Masonry.h>
+#import "WXApi.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "Reachability.h"
+
+// 引入JPush功能所需头文件
+#import "JPUSHService.h"
+// iOS10注册APNs所需头文件
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
+
+
+
+#define JGApplication  [UIApplication sharedApplication]
+#define JGUserDefaults [NSUserDefaults standardUserDefaults]
+#define JGNotification [NSNotificationCenter defaultCenter] //通知
+#define JGFont(size) [UIFont systemFontOfSize:size] //字体尺寸
+#define Image(name) [UIImage imageNamed:name] //图片
+
+//尺寸
+#define kDeviceHight [UIScreen mainScreen].bounds.size.height
+#define kDeviceWidth [UIScreen mainScreen].bounds.size.width
+
+
+//iphoneX 适配
+#define SJHeight ([[UIApplication sharedApplication] statusBarFrame].size.height > 20? 86 : 64)  //导航栏高度
+#define IphoneXHeight ([[UIApplication sharedApplication] statusBarFrame].size.height > 20? 22 : 0)  //导航栏增加高度
+#define IphoneXTabbarH ([[UIApplication sharedApplication] statusBarFrame].size.height > 20? 83 : 49)  //tabbar高度
+
+
+
+
+//#define HTTPBaseIconUrl @"http:.10.67" //线下
+//#define HTTPBaseUrl  @"htt/k" //线下
+//#define HTTP_Url  @"" //线下  --> 协议
+
+
+
+
+#define HTTP_Url  @"" //线上  --> 协议
+#define HTTPBaseUrl  @"" //线上
+#define HTTPBaseIconUrl @"" //线上
+
+
+
+
+#ifdef DEBUG
+
+
+//自定义Log日志输出
+#define JGLog(fmt, ...) NSLog((@"%s [Line %d] " fmt),__PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define JGLogFunc JGLog(@"%s", __func__);
+//#define JGLog(...) NSLog(__VA_ARGS__)
+
+#else
+
+
+#define JGLog(...)
+
+#endif
+
+
+
+#import "ZJBLHttpManager.h"
+
+//临时使用固定的TOKEN
+#define TOKEN [JGCommonTools getUserDefaultsWithKey:@"token"]
+#define USER_ID [JGCommonTools getUserDefaultsWithKey:@"id"]
+
+//微信支付APPID
+#define WX_APP_ID @"wx7b40a2496f8b60ab"
+//高德地图APPKEY
+#define ScotMap_APP_KEY @"9de6e06db9f3f1eedaca66f0782ecb72"
+//友盟
+#define UM_APP_KEY @"5923a05f8630f562c50001c7"
+//极光推送
+#define jPush_APP_KEY @"0b18f9f0bd190674f7636fde"
+
+
+/*** 将服务器返回的数据写入plist ***/
+//#define JGWriteToPlist(data, filename) [data writeToFile:[NSString stringWithFormat:@"/Users/guojun/Desktop/%@.plist", filename] atomically:YES];
+
+/*** 当前系统的版本判断 ***/
+//#define iOS(version) ([UIDevice currentDevice].systemVersion.doubleValue >= (version))
+
+/** 弱引用 */
+//#define WEAKSELF __weak typeof(self) weakSelf = self
+
+//#define WS(weakSelf) __weak __typeof(&*self)weakSelf = self;
+
+/** 避免self的提前释放 */
+//#define STRONGSELF __weak typeof(weakSelf) strongSelf = weakSelf
+
+
+
+
+//颜色定义
+#define JGRGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+#define JGRandomColor   JGRGBColor(arc4random_uniform(255),arc4random_uniform(255),arc4random_uniform(255))
+
+//主色调
+#define JGMainColor [UIColor colorWithHexCode:@"#ffa101"]
+
+//点击按钮选中时颜色
+#define JGButtonHeighColor [UIColor colorWithHexCode:@"#fe960c"]
+
+//点击按钮选中时颜色
+#define JGHUDColor [UIColor colorWithHexCode:@"#666666"]
+
+
+#endif /* PrefixHeader_pch */

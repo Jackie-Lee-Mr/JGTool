@@ -1,0 +1,191 @@
+//
+//  Helper.pch
+//  LH_QJ
+//
+//  Created by 郭军 on 2018/4/4.
+//  Copyright © 2018年 LHYD. All rights reserved.
+//
+
+#ifndef Helper_pch
+#define Helper_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+
+#import "QJConst.h" //常量
+#import "JGCommonTools.h" //工具
+#import "QJCustomHUD.h" //自定义提示框
+#import "QJHttpManager.h" //网络请求工具
+#import "HMSingleton.h" //单例
+#import "QJGetPhotoPathTool.h" //上传图片
+#import "QJPredicateMethod.h" //正则
+#import "QJGotoTopBtn.h" //回到顶部
+#import "QJGlobalUnityButton.h" //全局按钮
+#import "QJRefreshHeader.h" //上拉刷新
+#import "QJRefreshFooter.h" //下拉加载
+#import "QJCountDownView.h" //拼手气倒计时
+#import "QJPaymentTool.h" //支付工具
+#import "QJShareTool.h" //分享工具
+#import "QJGeneralWarnAlert.h" //警告弹出框
+#import "QJCustomAlert.h"
+#import "QJGeneralShareActionSheet.h" //分享 & 邀请
+//#import "LYEmptyViewHeader.h" //无数据、无网络占位图
+//#import "QJDIYEmpty.h"
+//#import "QJEmptyView.h"
+
+/*******************************  三方  *********************************************/
+
+#import "MBProgressHUD.h"
+#import <Masonry.h>
+#import <MJExtension.h>
+#import <UIImageView+WebCache.h>
+#import <UIButton+WebCache.h>
+#import "Reachability.h"
+#import <MJRefresh.h>
+#import <UMAnalytics/DplusMobClick.h>       // 引入Dplus header file
+#import <UMShare/UMShare.h>
+#import "IQKeyboardManager.h"
+
+
+// 引入JPush功能所需头文件
+#import "JPUSHService.h"
+// iOS10注册APNs所需头文件
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
+
+
+
+/*
+ * 开源高效处理圆角的扩展，包括UIImageView、UIView、UIButton、UIImage的扩展API，
+ * 可根据图片颜色生成图片带任意圆角，可给UIButton根据不同状态处理图片。
+ * 所有生成图片都不会引起离屏渲染且不会引起离屏、图层混合，支持添加图片边框
+ */
+#import "HYBImageCliped.h"
+
+
+/*******************************  分类  *********************************************/
+
+#import "UIViewController+QJPopBlock.h"
+#import "UINavigationBar+QJAlpha.h"
+#import "UIColor+JGHexColor.h"
+#import "UIView+JGExtension.h"
+#import "UIImage+JGColor.h"
+#import "UIImage+JGExtension.h"
+#import "UILabel+JGAutoFrame.h"
+#import "NSString+JGCache.h"
+#import "UIImage+JGScale.h"
+#import "UIImage+JGQRCode.h"
+#import "UIBarButtonItem+JGAddition.h"
+#import "NSObject+CZRuntime.h"
+#import "NSString+JGDecimalNumber.h" //处理高进度数字的工具类
+#import "UILabel+JGCopy.h"
+#import "JGSafeObject.h"
+#import "UITextField+JGFormatNumber.h" //输入时格式化电话 身份证 银行卡
+
+#define HttpBaseUrl @""
+
+//友盟
+//#define UM_APP_ID = @"5af6435cf43e4873f30009ad";
+
+//分享 ===============================================================================
+//*  @param appKey       第三方平台的appKey（平台为appID）
+//*  @param appSecret    第三方平台的appSecret（平台为appKey）
+////微信
+//#define WX_APP_KEY @"wxa57f9acb76bee7e3"
+//#define WX_APP_SECRET @"51fbdac93586d411d362dd191d4feb58"
+////QQ
+//#define QQ_APP_ID @"1106834229"
+//#define QQ_APP_KEY @"XwjTLltQrDwOG5rL"
+
+
+
+
+
+/*******************************  快速设置  *********************************************/
+
+#define JGApplication  [UIApplication sharedApplication]
+#define JGUserDefaults [NSUserDefaults standardUserDefaults]
+#define JGNotification [NSNotificationCenter defaultCenter] //通知
+#define JGFont(size) [UIFont systemFontOfSize:size] //字体尺寸
+#define JGBoldFont(size1) [UIFont fontWithName:@"Helvetica-Bold" size:size1] //加粗字体尺寸
+
+//#define JGFont(size) [UIFont systemFontOfSize:[JGCommonTools pxTopt:size]] //字体尺寸
+//#define JGBoldFont(size1) [UIFont fontWithName:@"Helvetica-Bold" size:[JGCommonTools pxTopt:size1]] //加粗字体尺寸
+
+#define Image(name) [UIImage imageNamed:name] //图片
+
+#define WhiteImage [UIImage imageWithColor:[UIColor whiteColor]]
+
+#define QJUSER_ID [JGCommonTools getUserDefaultsWithKey:@"user_id"]
+
+
+/** 弱引用 */
+#define WEAKSELF __weak typeof(self) weakSelf = self
+#define WS(weakSelf) __weak __typeof(&*self)weakSelf = self;
+/** 避免self的提前释放 */
+#define STRONGSELF __weak typeof(weakSelf) strongSelf = weakSelf
+
+
+/*******************************  尺寸  **************************************************/
+#define kDeviceHight [UIScreen mainScreen].bounds.size.height
+#define kDeviceWidth [UIScreen mainScreen].bounds.size.width
+
+//iphoneX 适配
+#define SJHeight ([[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 86 : 64)  //导航栏高度
+#define IphoneXHeight ([[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 22 : 0)  //导航栏增加高度
+#define IphoneXTabbarH ([[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 83 : 49)  //tabbar高度
+#define IphoneXTH ([[UIApplication sharedApplication] statusBarFrame].size.height > 20 ? 34 : 0)  //tabbar增加高度
+
+#define iphone5 ((kDeviceWidth==320)?1:0)
+#define iphone6 ((kDeviceWidth==375)?1:0)
+#define iphone6plus ((kDeviceWidth==414)?1:0)
+#define iphone5W 320.0
+#define iphone6W 375.0
+#define iphone6plusW 414.0
+
+
+/*******************************  颜色  **************************************************/
+//颜色定义
+#define JGRGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+#define JGRandomColor   JGRGBColor(arc4random_uniform(255),arc4random_uniform(255),arc4random_uniform(255))
+
+//主色调
+#define JGMainColor [UIColor colorWithHexCode:@"#ff0036"]
+//333333颜色
+#define JG333Color [UIColor colorWithHexCode:@"#333333"]
+//666666颜色
+#define JG666Color [UIColor colorWithHexCode:@"#666666"]
+//999999颜色
+#define JG999Color [UIColor colorWithHexCode:@"#999999"]
+//分割线颜色
+#define JGLineColor [UIColor colorWithHexCode:@"#efefef"]
+
+
+
+
+
+/*******************************  日志  ************************************************/
+#ifdef DEBUG
+
+
+//自定义Log日志输出
+#define JGLog(fmt, ...) NSLog((@"%s [Line %d] " fmt),__PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define JGLogFunc JGLog(@"%s", __func__);
+//#define JGLog(...) NSLog(__VA_ARGS__)
+
+#else
+
+
+#define JGLog(...)
+#define JGLogFunc JGLog(...);
+
+#endif
+
+
+
+
+
+#endif /* Helper_pch */
